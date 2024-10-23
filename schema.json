@@ -1,1149 +1,263 @@
 {
     "openapi": "3.0.3",
     "info": {
-        "title": "",
-        "version": "0.0.0"
+        "title": "Authoring API",
+        "version": "0.1.0",
+        "description": "Experimental API to edit xblocks and course content.\n    \n\nDanger: Do not use on running courses!\n    \n\n - How to gain access: Please email the owners of this openedx service.\n    \n - How to use: This API uses oauth2 authentication with the\n    access token endpoint: `http://localhost:18000/oauth2/access_token`.\n    Please see separately provided documentation.\n    \n - How to test: You must be logged in as course author for whatever course you want to test with.\n    You can use the [Swagger UI](https://localhost:18000/authoring-api/ui/) to \"Try out\" the API with your test course. To do this, you must select the \"Local\" server.\n    \n - Public vs. Local servers: The \"Public\" server is where you can reach the API externally. The \"Local\" server is\n    for development with a local edx-platform version,  and for use via the [Swagger UI](https://localhost:18010/authoring-api/ui/).\n    \n - Swaggerfile: [Download link](https://localhost:18000/authoring-api/schema/)"
     },
     "paths": {
-        "/apis/schema/": {
+        "/courses/{course_id}/courseware-navigation-sidebar/toggles/": {
             "get": {
-                "operationId": "apis_schema_retrieve",
-                "description": "OpenApi3 schema for this API. Format can be selected via content negotiation.\n\n- YAML: application/vnd.oai.openapi\n- JSON: application/vnd.oai.openapi+json",
+                "operationId": "courses_courseware_navigation_sidebar_toggles_retrieve",
+                "description": "GET endpoint to return navigation sidebar toggles.",
                 "parameters": [
                     {
-                        "in": "query",
-                        "name": "format",
+                        "in": "path",
+                        "name": "course_id",
                         "schema": {
                             "type": "string",
-                            "enum": [
-                                "json",
-                                "yaml"
-                            ]
-                        }
-                    },
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "security": [
+                    {}
+                ],
+                "responses": {
+                    "200": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/courseware-search/enabled/": {
+            "get": {
+                "operationId": "courses_courseware_search_enabled_retrieve",
+                "description": "Simple GET endpoint to expose whether the user may use Courseware Search\nfor a given course.",
+                "parameters": [
                     {
-                        "in": "query",
-                        "name": "lang",
+                        "in": "path",
+                        "name": "course_id",
                         "schema": {
                             "type": "string",
-                            "enum": [
-                                "af",
-                                "ar",
-                                "ar-dz",
-                                "ast",
-                                "az",
-                                "be",
-                                "bg",
-                                "bn",
-                                "br",
-                                "bs",
-                                "ca",
-                                "ckb",
-                                "cs",
-                                "cy",
-                                "da",
-                                "de",
-                                "dsb",
-                                "el",
-                                "en",
-                                "en-au",
-                                "en-gb",
-                                "eo",
-                                "es",
-                                "es-ar",
-                                "es-co",
-                                "es-mx",
-                                "es-ni",
-                                "es-ve",
-                                "et",
-                                "eu",
-                                "fa",
-                                "fi",
-                                "fr",
-                                "fy",
-                                "ga",
-                                "gd",
-                                "gl",
-                                "he",
-                                "hi",
-                                "hr",
-                                "hsb",
-                                "hu",
-                                "hy",
-                                "ia",
-                                "id",
-                                "ig",
-                                "io",
-                                "is",
-                                "it",
-                                "ja",
-                                "ka",
-                                "kab",
-                                "kk",
-                                "km",
-                                "kn",
-                                "ko",
-                                "ky",
-                                "lb",
-                                "lt",
-                                "lv",
-                                "mk",
-                                "ml",
-                                "mn",
-                                "mr",
-                                "ms",
-                                "my",
-                                "nb",
-                                "ne",
-                                "nl",
-                                "nn",
-                                "os",
-                                "pa",
-                                "pl",
-                                "pt",
-                                "pt-br",
-                                "ro",
-                                "ru",
-                                "sk",
-                                "sl",
-                                "sq",
-                                "sr",
-                                "sr-latn",
-                                "sv",
-                                "sw",
-                                "ta",
-                                "te",
-                                "tg",
-                                "th",
-                                "tk",
-                                "tr",
-                                "tt",
-                                "udm",
-                                "uk",
-                                "ur",
-                                "uz",
-                                "vi",
-                                "zh-hans",
-                                "zh-hant"
-                            ]
-                        }
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
                     }
                 ],
                 "tags": [
-                    "apis"
+                    "courses"
                 ],
                 "security": [
-                    {
-                        "jwtAuth": []
-                    },
                     {}
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/vnd.oai.openapi": {
-                                "schema": {
-                                    "type": "object",
-                                    "additionalProperties": {}
-                                }
-                            },
-                            "application/yaml": {
-                                "schema": {
-                                    "type": "object",
-                                    "additionalProperties": {}
-                                }
-                            },
-                            "application/vnd.oai.openapi+json": {
-                                "schema": {
-                                    "type": "object",
-                                    "additionalProperties": {}
-                                }
-                            },
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "additionalProperties": {}
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/auth/jwt/create/": {
-            "post": {
-                "operationId": "auth_jwt_create_create",
-                "description": "Takes a set of user credentials and returns an access and refresh JSON web\ntoken pair to prove the authentication of those credentials.",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TokenObtainPair"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TokenObtainPair"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TokenObtainPair"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/TokenObtainPair"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/auth/jwt/refresh/": {
-            "post": {
-                "operationId": "auth_jwt_refresh_create",
-                "description": "Takes a refresh type JSON web token and returns an access type JSON web\ntoken if the refresh token is valid.",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TokenRefresh"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TokenRefresh"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TokenRefresh"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/TokenRefresh"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/auth/jwt/verify/": {
-            "post": {
-                "operationId": "auth_jwt_verify_create",
-                "description": "Takes a token and indicates if it is valid.  This view provides no\ninformation about a token's fitness for a particular use.",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TokenVerify"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TokenVerify"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TokenVerify"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/TokenVerify"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/auth/users/": {
-            "get": {
-                "operationId": "auth_users_list",
-                "parameters": [
-                    {
-                        "name": "page",
-                        "required": false,
-                        "in": "query",
-                        "description": "A page number within the paginated result set.",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "tags": [
-                    "auth"
-                ],
-                "security": [
-                    {
-                        "jwtAuth": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/PaginatedUserList"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            },
-            "post": {
-                "operationId": "auth_users_create",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UserCreate"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UserCreate"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UserCreate"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {}
-                ],
-                "responses": {
-                    "201": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UserCreate"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/auth/users/{id}/": {
-            "get": {
-                "operationId": "auth_users_retrieve",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "description": "A unique integer value identifying this user.",
-                        "required": true
-                    }
-                ],
-                "tags": [
-                    "auth"
-                ],
-                "security": [
-                    {
-                        "jwtAuth": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            },
-            "put": {
-                "operationId": "auth_users_update",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "description": "A unique integer value identifying this user.",
-                        "required": true
-                    }
-                ],
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/User"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/User"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/User"
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            },
-            "patch": {
-                "operationId": "auth_users_partial_update",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "description": "A unique integer value identifying this user.",
-                        "required": true
-                    }
-                ],
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PatchedUser"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PatchedUser"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PatchedUser"
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "auth_users_destroy",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "description": "A unique integer value identifying this user.",
-                        "required": true
-                    }
-                ],
-                "tags": [
-                    "auth"
-                ],
-                "security": [
-                    {
-                        "jwtAuth": []
-                    }
-                ],
-                "responses": {
-                    "204": {
                         "description": "No response body"
                     }
                 }
             }
         },
-        "/auth/users/activation/": {
+        "/courses/{course_id}/instructor/api/change_due_date": {
             "post": {
-                "operationId": "auth_users_activation_create",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Activation"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Activation"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Activation"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {}
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Activation"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/auth/users/me/": {
-            "get": {
-                "operationId": "auth_users_me_retrieve",
-                "tags": [
-                    "auth"
-                ],
-                "security": [
-                    {
-                        "jwtAuth": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            },
-            "put": {
-                "operationId": "auth_users_me_update",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/User"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/User"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/User"
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            },
-            "patch": {
-                "operationId": "auth_users_me_partial_update",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PatchedUser"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PatchedUser"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PatchedUser"
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            },
-            "delete": {
-                "operationId": "auth_users_me_destroy",
-                "tags": [
-                    "auth"
-                ],
-                "security": [
-                    {
-                        "jwtAuth": []
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No response body"
-                    }
-                }
-            }
-        },
-        "/auth/users/resend_activation/": {
-            "post": {
-                "operationId": "auth_users_resend_activation_create",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SendEmailReset"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SendEmailReset"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SendEmailReset"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {}
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SendEmailReset"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/auth/users/reset_password/": {
-            "post": {
-                "operationId": "auth_users_reset_password_create",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SendEmailReset"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SendEmailReset"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SendEmailReset"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {}
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SendEmailReset"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/auth/users/reset_password_confirm/": {
-            "post": {
-                "operationId": "auth_users_reset_password_confirm_create",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PasswordResetConfirm"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PasswordResetConfirm"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PasswordResetConfirm"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {}
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/PasswordResetConfirm"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/auth/users/reset_username/": {
-            "post": {
-                "operationId": "auth_users_reset_username_create",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SendEmailReset"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SendEmailReset"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SendEmailReset"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {}
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SendEmailReset"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/auth/users/reset_username_confirm/": {
-            "post": {
-                "operationId": "auth_users_reset_username_confirm_create",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UsernameResetConfirm"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UsernameResetConfirm"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UsernameResetConfirm"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {}
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/UsernameResetConfirm"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/auth/users/set_password/": {
-            "post": {
-                "operationId": "auth_users_set_password_create",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SetPassword"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SetPassword"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SetPassword"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SetPassword"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/auth/users/set_username/": {
-            "post": {
-                "operationId": "auth_users_set_username_create",
-                "tags": [
-                    "auth"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SetUsername"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SetUsername"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/SetUsername"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SetUsername"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/todos": {
-            "get": {
-                "operationId": "todos_list",
-                "description": "Returns a list of all the todo items for the authenticated user",
-                "summary": "List Todo items",
-                "tags": [
-                    "todos"
-                ],
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {}
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Todo"
-                                    }
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            },
-            "post": {
-                "operationId": "todos_create",
-                "description": "Creates a new todo item for the authenticated user with the provided data",
-                "summary": "Create a new Todo",
-                "tags": [
-                    "todos"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Todo"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Todo"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Todo"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    },
-                    {}
-                ],
-                "responses": {
-                    "201": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Todo"
-                                }
-                            }
-                        },
-                        "description": ""
-                    },
-                    "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "additionalProperties": {},
-                                    "description": "Unspecified response body"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/todos/{todo_id}/": {
-            "get": {
-                "operationId": "todos_retrieve",
-                "description": "Retrieves the Todo with given todo_id",
+                "operationId": "courses_instructor_api_change_due_date_create",
+                "description": "Grants a due date extension to a student for a particular unit.\n\nparams:\n    url (str): The URL related to the block that needs the due date update.\n    due_datetime (str): The new due date and time for the block.\n    student (str): The email or username of the student whose access is being modified.",
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "todo_id",
+                        "name": "course_id",
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
                         },
                         "required": true
                     }
                 ],
                 "tags": [
-                    "todos"
+                    "courses"
                 ],
-                "security": [
-                    {
-                        "jwtAuth": []
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BlockDueDate"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BlockDueDate"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BlockDueDate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BlockDueDate"
+                                }
+                            }
+                        },
+                        "description": ""
                     }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/get_anon_ids": {
+            "post": {
+                "operationId": "courses_instructor_api_get_anon_ids_create",
+                "description": "Handle POST request to generate a CSV output.\n\nReturns:\n    Response: A CSV file with two columns: `user-id` and `anonymized-user-id`.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/get_grading_config": {
+            "post": {
+                "operationId": "courses_instructor_api_get_grading_config_create",
+                "description": "Post method to return grading config.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/get_student_enrollment_status": {
+            "post": {
+                "operationId": "courses_instructor_api_get_student_enrollment_status_create",
+                "description": "Permission: Limited to staff access.\nTakes query parameter unique_student_identifier",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/get_student_progress_url": {
+            "post": {
+                "operationId": "courses_instructor_api_get_student_progress_url_create",
+                "description": "Post method for validating incoming data and generating progress URL",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StudentProgressUrl"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StudentProgressUrl"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StudentProgressUrl"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StudentProgressUrl"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/get_students_who_may_enroll": {
+            "get": {
+                "operationId": "courses_instructor_api_get_students_who_may_enroll_retrieve",
+                "description": "Initiate generation of a CSV file containing information about",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
                 ],
                 "responses": {
                     "200": {
@@ -1151,73 +265,595 @@
                     }
                 }
             },
-            "put": {
-                "operationId": "todos_update",
-                "description": "Updates the todo item with given todo_id if exists",
+            "post": {
+                "operationId": "courses_instructor_api_get_students_who_may_enroll_create",
+                "description": "Initiate generation of a CSV file containing information about\n students who may enroll in a course.\n\nResponds with JSON\n    {\"status\": \"... status message ...\"}",
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "todo_id",
+                        "name": "course_id",
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
                         },
                         "required": true
                     }
                 ],
                 "tags": [
-                    "todos"
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Todo"
-                            }
-                        },
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Todo"
-                            }
-                        },
-                        "multipart/form-data": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Todo"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "security": [
-                    {
-                        "jwtAuth": []
-                    }
+                    "courses"
                 ],
                 "responses": {
                     "200": {
                         "description": "No response body"
                     }
                 }
-            },
-            "delete": {
-                "operationId": "todos_destroy",
-                "description": "Deletes the todo item with given todo_id if exists",
+            }
+        },
+        "/courses/{course_id}/instructor/api/list_course_role_members": {
+            "post": {
+                "operationId": "courses_instructor_api_list_course_role_members_create",
+                "description": "Handles POST request to list instructors and staff.\n\nArgs:\n    request (HttpRequest): The request object containing user data.\n    course_id (str): The ID of the course to list instructors and staff for.\n\nReturns:\n    Response: A Response object containing the list of instructors and staff or an error message.\n\nRaises:\n    Http404: If the course does not exist.",
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "todo_id",
+                        "name": "course_id",
                         "schema": {
-                            "type": "integer"
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
                         },
                         "required": true
                     }
                 ],
                 "tags": [
-                    "todos"
+                    "courses"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/list_email_content": {
+            "post": {
+                "operationId": "courses_instructor_api_list_email_content_create",
+                "description": "List the content of bulk emails sent for a specific course.\n\nArgs:\n    request (HttpRequest): The HTTP request object.\n    course_id (str): The ID of the course for which to list the bulk emails.\n\nReturns:\n    HttpResponse: A response object containing the list of bulk email contents.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/list_entrance_exam_instructor_tasks": {
+            "post": {
+                "operationId": "courses_instructor_api_list_entrance_exam_instructor_tasks_create",
+                "description": "List entrance exam related instructor tasks.\n\nTakes either of the following query parameters\n    - unique_student_identifier is an email or username\n    - all_students is a boolean",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/list_instructor_tasks": {
+            "post": {
+                "operationId": "courses_instructor_api_list_instructor_tasks_create",
+                "description": "List instructor tasks.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ListInstructorTaskInput"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ListInstructorTaskInput"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ListInstructorTaskInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListInstructorTaskInput"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/list_report_downloads": {
+            "post": {
+                "operationId": "courses_instructor_api_list_report_downloads_create",
+                "description": "List grade CSV files that are available for download for this course.\n\nTakes the following query parameters:\n- (optional) report_name - name of the report",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/mark_student_can_skip_entrance_exam": {
+            "post": {
+                "operationId": "courses_instructor_api_mark_student_can_skip_entrance_exam_create",
+                "description": "Takes `unique_student_identifier` as required POST parameter.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UniqueStudentIdentifier"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UniqueStudentIdentifier"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UniqueStudentIdentifier"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UniqueStudentIdentifier"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/modify_access": {
+            "post": {
+                "operationId": "courses_instructor_api_modify_access_create",
+                "description": "Modify staff/instructor access of other user.\nRequires instructor access.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Access"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Access"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Access"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Access"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/register_and_enroll_students": {
+            "post": {
+                "operationId": "courses_instructor_api_register_and_enroll_students_create",
+                "description": "Create new account and Enroll students in this course.\nPassing a csv file that contains a list of students.\nOrder in csv should be the following email = 0; username = 1; name = 2; country = 3.\nIf there are more than 4 columns in the csv: cohort = 4, course mode = 5.\nRequires staff access.\n\n-If the email address and username already exists and the user is enrolled in the course,\ndo nothing (including no email gets sent out)\n\n-If the email address already exists, but the username is different,\nmatch on the email address only and continue to enroll the user in the course using the email address\nas the matching criteria. Note the change of username as a warning message (but not a failure).\nSend a standard enrollment email which is the same as the existing manual enrollment\n\n-If the username already exists (but not the email), assume it is a different user and fail\nto create the new account.\nThe failure will be messaged in a response in the browser.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/reset_due_date": {
+            "post": {
+                "operationId": "courses_instructor_api_reset_due_date_create",
+                "description": "reset a due date extension to a student for a particular unit.\nparams:\n    url (str): The URL related to the block that needs the due date update.\n    student (str): The email or username of the student whose access is being modified.\n    reason (str): Optional param.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BlockDueDate"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BlockDueDate"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BlockDueDate"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BlockDueDate"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/reset_student_attempts": {
+            "post": {
+                "operationId": "courses_instructor_api_reset_student_attempts_create",
+                "description": "Takes some of the following query parameters\n- problem_to_reset is a urlname of a problem\n- unique_student_identifier is an email or username\n- all_students is a boolean\n    requires instructor access\n    mutually exclusive with delete_module\n    mutually exclusive with delete_module\n- delete_module is a boolean\n    requires instructor access\n    mutually exclusive with all_students",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StudentAttempts"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StudentAttempts"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StudentAttempts"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StudentAttempts"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/send_email": {
+            "post": {
+                "operationId": "courses_instructor_api_send_email_create",
+                "description": "Query Parameters:\n- 'send_to' specifies what group the email should be sent to\n   Options are defined by the CourseEmail model in\n   lms/djangoapps/bulk_email/models.py\n- 'subject' specifies email's subject\n- 'message' specifies email's content",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SendEmail"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SendEmail"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SendEmail"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SendEmail"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/instructor/api/show_student_extensions": {
+            "post": {
+                "operationId": "courses_instructor_api_show_student_extensions_create",
+                "description": "Handles POST requests to retrieve due date extensions for a specific student\nwithin a specified course.\n\nParameters:\n- `request`: The HTTP request object containing user-submitted data.\n- `course_id`: The ID of the course for which the extensions are being queried.\n\nData expected in the request:\n- `student`: A required field containing the identifier of the student for whom\n  the due date extensions are being retrieved. This data is extracted from the\n  request body.\n\nReturns:\n- A JSON response containing the details of the due date extensions granted to\n  the specified student in the specified course.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ShowStudentExtension"
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ShowStudentExtension"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ShowStudentExtension"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ShowStudentExtension"
+                                }
+                            }
+                        },
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/teams/": {
+            "get": {
+                "operationId": "courses_teams_retrieve",
+                "description": "Renders the teams dashboard, which is shown on the \"Teams\" tab.\n\nRaises a 404 if the course specified by course_id does not exist, the\nuser is not registered for the course, or the teams feature is not enabled.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/courses/{course_id}/xblock/{usage_id}/view/{view_name}": {
+            "get": {
+                "operationId": "courses_xblock_view_retrieve",
+                "description": "Returns the rendered view of a given XBlock, with related resources\n\nReturns a json object containing two keys:\n    html: The rendered html of the view\n    resources: A list of tuples where the first element is the resource hash, and\n        the second is the resource description",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "course_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/+]+(/|\\+)[^/+]+(/|\\+)[^/?]+$"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "usage_id",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^(?:i4x://?[^/]+/[^/]+/[^/]+/[^@]+(?:@[^/]+)?)|(?:[^/]+)$"
+                        },
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "view_name",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[^/]*$"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "courses"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "No response body"
+                    }
+                }
+            }
+        },
+        "/courses/yt_video_metadata": {
+            "get": {
+                "operationId": "courses_yt_video_metadata_retrieve",
+                "description": "Will hit the youtube API if the key is available in settings\n:return: youtube video metadata",
+                "tags": [
+                    "courses"
                 ],
                 "security": [
-                    {
-                        "jwtAuth": []
-                    }
+                    {}
                 ],
                 "responses": {
                     "200": {
@@ -1229,301 +865,185 @@
     },
     "components": {
         "schemas": {
-            "Activation": {
+            "Access": {
                 "type": "object",
+                "description": "Serializer for managing user access changes.\nThis serializer validates and processes the data required to modify\nuser access within a system.",
                 "properties": {
-                    "uid": {
-                        "type": "string"
+                    "unique_student_identifier": {
+                        "type": "string",
+                        "description": "Email or username of user to change access",
+                        "maxLength": 255
                     },
-                    "token": {
-                        "type": "string"
+                    "rolename": {
+                        "type": "string",
+                        "description": "Role name to assign to the user"
+                    },
+                    "action": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ActionEnum"
+                            }
+                        ],
+                        "description": "Action to perform on the user's access\n\n* `allow` - allow\n* `revoke` - revoke"
                     }
                 },
                 "required": [
-                    "token",
-                    "uid"
+                    "action",
+                    "rolename",
+                    "unique_student_identifier"
                 ]
             },
-            "PaginatedUserList": {
-                "type": "object",
-                "required": [
-                    "count",
-                    "results"
+            "ActionEnum": {
+                "enum": [
+                    "allow",
+                    "revoke"
                 ],
+                "type": "string",
+                "description": "* `allow` - allow\n* `revoke` - revoke"
+            },
+            "BlockDueDate": {
+                "type": "object",
+                "description": "Serializer for handling block due date updates for a specific student.\nFields:\n    url (str): The URL related to the block that needs the due date update.\n    due_datetime (str): The new due date and time for the block.\n    student (str): The email or username of the student whose access is being modified.\n    reason (str): Reason why updating this.",
                 "properties": {
-                    "count": {
-                        "type": "integer",
-                        "example": 123
+                    "url": {
+                        "type": "string"
                     },
-                    "next": {
+                    "due_datetime": {
+                        "type": "string"
+                    },
+                    "student": {
                         "type": "string",
-                        "nullable": true,
-                        "format": "uri",
-                        "example": "http://api.example.org/accounts/?page=4"
+                        "description": "Email or username of user to change access",
+                        "maxLength": 255
                     },
-                    "previous": {
+                    "reason": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "due_datetime",
+                    "student",
+                    "url"
+                ]
+            },
+            "ListInstructorTaskInput": {
+                "type": "object",
+                "description": "Serializer for handling the input data for the problem response report generation API.\n\nAttributes:\n    unique_student_identifier (str): The email or username of the student.\n                                      This field is optional, but if provided, the `problem_location_str`\n                                      must also be provided.\n    problem_location_str (str): The string representing the location of the problem within the course.\n                                This field is optional, unless `unique_student_identifier` is provided.",
+                "properties": {
+                    "unique_student_identifier": {
                         "type": "string",
-                        "nullable": true,
-                        "format": "uri",
-                        "example": "http://api.example.org/accounts/?page=2"
+                        "description": "Email or username of student",
+                        "maxLength": 255
                     },
-                    "results": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/User"
-                        }
+                    "problem_location_str": {
+                        "type": "string",
+                        "description": "Problem location"
                     }
                 }
             },
-            "PasswordResetConfirm": {
+            "SendEmail": {
                 "type": "object",
+                "description": "Serializer for sending an email with optional scheduling.\n\nFields:\n    send_to (str): The email address of the recipient. This field is required.\n    subject (str): The subject line of the email. This field is required.\n    message (str): The body of the email. This field is required.\n    schedule (str, optional):\n    An optional field to specify when the email should be sent.\n    If provided, this should be a string that can be parsed into a\n    datetime format or some other scheduling logic.",
                 "properties": {
-                    "uid": {
-                        "type": "string"
-                    },
-                    "token": {
-                        "type": "string"
-                    },
-                    "new_password": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "new_password",
-                    "token",
-                    "uid"
-                ]
-            },
-            "PatchedUser": {
-                "type": "object",
-                "properties": {
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "title": "Email address",
-                        "maxLength": 254
-                    },
-                    "id": {
-                        "type": "integer",
-                        "readOnly": true
-                    },
-                    "username": {
-                        "type": "string",
-                        "readOnly": true,
-                        "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
-                    }
-                }
-            },
-            "SendEmailReset": {
-                "type": "object",
-                "properties": {
-                    "email": {
-                        "type": "string",
-                        "format": "email"
-                    }
-                },
-                "required": [
-                    "email"
-                ]
-            },
-            "SetPassword": {
-                "type": "object",
-                "properties": {
-                    "new_password": {
-                        "type": "string"
-                    },
-                    "current_password": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "current_password",
-                    "new_password"
-                ]
-            },
-            "SetUsername": {
-                "type": "object",
-                "properties": {
-                    "current_password": {
-                        "type": "string"
-                    },
-                    "new_username": {
-                        "type": "string",
-                        "title": "Username",
-                        "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
-                        "pattern": "^[\\w.@+-]+$",
-                        "maxLength": 150
-                    }
-                },
-                "required": [
-                    "current_password",
-                    "new_username"
-                ]
-            },
-            "Todo": {
-                "type": "object",
-                "properties": {
-                    "task": {
-                        "type": "string",
-                        "maxLength": 180
-                    },
-                    "completed": {
-                        "type": "boolean"
-                    },
-                    "timestamp": {
-                        "type": "string",
-                        "format": "date-time",
-                        "readOnly": true
-                    },
-                    "updated": {
-                        "type": "string",
-                        "format": "date-time",
-                        "readOnly": true
-                    },
-                    "user": {
-                        "type": "integer",
-                        "nullable": true
-                    }
-                },
-                "required": [
-                    "task",
-                    "timestamp",
-                    "updated"
-                ]
-            },
-            "TokenObtainPair": {
-                "type": "object",
-                "properties": {
-                    "username": {
+                    "send_to": {
                         "type": "string",
                         "writeOnly": true
                     },
-                    "password": {
+                    "subject": {
                         "type": "string",
-                        "writeOnly": true
+                        "writeOnly": true,
+                        "maxLength": 128
                     },
-                    "access": {
-                        "type": "string",
-                        "readOnly": true
+                    "message": {
+                        "type": "string"
                     },
-                    "refresh": {
-                        "type": "string",
-                        "readOnly": true
+                    "schedule": {
+                        "type": "string"
                     }
                 },
                 "required": [
-                    "access",
-                    "password",
-                    "refresh",
-                    "username"
+                    "message",
+                    "send_to",
+                    "subject"
                 ]
             },
-            "TokenRefresh": {
+            "ShowStudentExtension": {
                 "type": "object",
+                "description": "Serializer for validating and processing the student identifier.",
                 "properties": {
-                    "access": {
-                        "type": "string",
-                        "readOnly": true
-                    },
-                    "refresh": {
+                    "student": {
                         "type": "string",
                         "writeOnly": true
                     }
                 },
                 "required": [
-                    "access",
-                    "refresh"
+                    "student"
                 ]
             },
-            "TokenVerify": {
+            "StudentAttempts": {
                 "type": "object",
+                "description": "Serializer for resetting a students attempts counter or starts a task to reset all students\nattempts counters.",
                 "properties": {
-                    "token": {
+                    "problem_to_reset": {
+                        "type": "string",
+                        "description": "The identifier or description of the problem that needs to be reset."
+                    },
+                    "unique_student_identifier": {
+                        "type": "string",
+                        "description": "Email or username of student."
+                    },
+                    "all_students": {
+                        "type": "string"
+                    },
+                    "delete_module": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "problem_to_reset"
+                ]
+            },
+            "StudentProgressUrl": {
+                "type": "object",
+                "description": "Serializer for course renders",
+                "properties": {
+                    "unique_student_identifier": {
                         "type": "string",
                         "writeOnly": true
-                    }
-                },
-                "required": [
-                    "token"
-                ]
-            },
-            "User": {
-                "type": "object",
-                "properties": {
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "title": "Email address",
-                        "maxLength": 254
                     },
-                    "id": {
-                        "type": "integer",
+                    "course_id": {
+                        "type": "string"
+                    },
+                    "progress_url": {
+                        "type": "string",
                         "readOnly": true
-                    },
-                    "username": {
-                        "type": "string",
-                        "readOnly": true,
-                        "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
                     }
                 },
                 "required": [
-                    "id",
-                    "username"
+                    "progress_url",
+                    "unique_student_identifier"
                 ]
             },
-            "UserCreate": {
+            "UniqueStudentIdentifier": {
                 "type": "object",
+                "description": "Serializer for identifying unique_student.",
                 "properties": {
-                    "email": {
+                    "unique_student_identifier": {
                         "type": "string",
-                        "format": "email",
-                        "title": "Email address",
-                        "maxLength": 254
-                    },
-                    "username": {
-                        "type": "string",
-                        "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
-                        "pattern": "^[\\w.@+-]+$",
-                        "maxLength": 150
-                    },
-                    "id": {
-                        "type": "integer",
-                        "readOnly": true
-                    },
-                    "password": {
-                        "type": "string",
-                        "writeOnly": true
+                        "description": "Email or username of user to change access",
+                        "maxLength": 255
                     }
                 },
                 "required": [
-                    "id",
-                    "password",
-                    "username"
+                    "unique_student_identifier"
                 ]
-            },
-            "UsernameResetConfirm": {
-                "type": "object",
-                "properties": {
-                    "new_username": {
-                        "type": "string",
-                        "title": "Username",
-                        "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
-                        "pattern": "^[\\w.@+-]+$",
-                        "maxLength": 150
-                    }
-                },
-                "required": [
-                    "new_username"
-                ]
-            }
-        },
-        "securitySchemes": {
-            "jwtAuth": {
-                "type": "apiKey",
-                "in": "header",
-                "name": "Authorization",
-                "description": "Token-based authentication with required prefix \"JWT\""
             }
         }
-    }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:18000/api/contentstore",
+            "description": "Local"
+        }
+    ]
 }
