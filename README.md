@@ -57,6 +57,7 @@ from generated_client.authoring_api_client.models.student_progress_url import St
 from generated_client.authoring_api_client.api.courses import courses_instructor_api_get_student_progress_url_create
 
 # Initialize the client
+```
 base_url = "http://local.edly.io:8000/"
 client_id = 'client-id'
 client_secret = 'client-secret'
@@ -103,4 +104,4 @@ data = courses_instructor_api_modify_access_create.Access(
 
 # Check response or handle it accordingly
 print(response)
-
+```
