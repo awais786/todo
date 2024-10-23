@@ -6,32 +6,36 @@ from .models import Todo
 from .permissions import IsOwner
 from .serializers import TodoSerializer
 
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 
-
-
+# @extend_schema(
+#     exclude=True
+# )
 class TodoListApiView(APIView):
     # add permission to check if user is authenticated
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsOwner]
+    # permission_classes = [IsAuthenticated,]
 
     @extend_schema(
-        request=TodoSerializer,
-        responses={200: None},  # You can specify response serializers here
+        tags=['todo'],  # This will group the endpoint under the 'todo' tag in the schema
+        description="List all todos",
+        summary="Get Todo list"
     )
-    # 1. List all
     def get(self, request, *args, **kwargs):
         '''
         List all the todo items for given requested user
         '''
-        todos = Todo.objects.filter(user=request.user.id)
+        todos = Todo.objects.filter(user=request.user)
         serializer = TodoSerializer(todos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # 2. Create
+    @extend_schema(
+        tags=['todo'],  # This will group the endpoint under the 'todo' tag in the schema
+        description="List all todos",
+        summary="Get Todo list"
+    )
     def post(self, request, *args, **kwargs):
         '''
         Create the Todo with given todo data
@@ -51,8 +55,7 @@ class TodoListApiView(APIView):
 
 class TodoDetailApiView(APIView):
     # add permission to check if user is authenticated
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsOwner]
+    permission_classes = [IsAuthenticated, ]
 
     def get_object(self, todo_id, user_id):
         '''

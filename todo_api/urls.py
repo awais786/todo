@@ -11,7 +11,7 @@ COURSE_ID_PATTERN = COURSE_KEY_PATTERN.replace('course_key_string', 'course_id')
 urlpatterns = [
     # URL pattern to match the instructor API endpoint
     # path('api/schema/', SpectacularAPIView.as_view(), name='api-schema'),
-    path("apis/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("schema/", SpectacularAPIView.as_view(), name="schema"),
     path('schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
@@ -20,9 +20,9 @@ urlpatterns = [
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
-    path('todos', TodoListApiView.as_view()),
-    path('todos/<int:todo_id>/', TodoDetailApiView.as_view()),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt')),
+    path('apis/todos', TodoListApiView.as_view()),
+    path('details/todos/<int:todo_id>/', TodoDetailApiView.as_view()),
+    # path('auth/', include('djoser.urls')),
+    # path('auth/', include('djoser.urls.jwt')),
 
 ]
