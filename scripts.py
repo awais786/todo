@@ -10,18 +10,16 @@ from generated_client.authoring_api_client.api.courses import \
     courses_instructor_api_mark_student_can_skip_entrance_exam_create
 import json
 
-
 base_url = "http://local.edly.io:8000/"
+course_id='course-v1:edx+cs202+2101'
 client_id = 'client-id'
 client_secret = 'client-secret'
-token_type = 'jwt'
-grant_type = 'client_credentials'
 
 payload = {
     'client_id': client_id,
     'client_secret': client_secret,
-    'grant_type': grant_type,
-    'token_type': token_type
+    'grant_type': 'client_credentials',
+    'token_type': 'jwt'
 }
 
 headers = {'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'}
@@ -33,6 +31,7 @@ client = AuthenticatedClient(
     base_url=base_url,
     token=token
 )
+
 
 def parsing(response):
     # Check the status code
@@ -54,7 +53,7 @@ data = {
 
 print('-----accessing anon ids api------')
 response = courses_instructor_api_get_anon_ids_create.sync_detailed(
-    client=client, course_id='course-v1:edx+cs202+2101'
+    client=client, course_id=course_id
 )
 parsing(response)
 
@@ -65,7 +64,7 @@ student_progress_data = StudentProgressUrl(
 )
 
 response = courses_instructor_api_get_student_progress_url_create.sync_detailed(
-    client=client, course_id='course-v1:edx+cs202+2101', body=student_progress_data
+    client=client, course_id=course_id, body=student_progress_data
 )
 #
 parsing(response)
@@ -79,14 +78,14 @@ data = courses_instructor_api_modify_access_create.Access(
 )
 response = courses_instructor_api_modify_access_create.sync_detailed(
     client=client,
-    course_id='course-v1:edx+cs202+2101',
+    course_id=course_id,
     body=data
 )
 
 print('-----accessing create role members api ------')
 
 response = courses_instructor_api_list_course_role_members_create.sync_detailed(
-    client=client, course_id='course-v1:edx+cs202+2101', body={'rolename': 'instructor'}
+    client=client, course_id=course_id, body={'rolename': 'instructor'}
 )
 
 parsing(response)
@@ -95,6 +94,6 @@ print('-----accessing skip student entrance exam api ------')
 
 data = UniqueStudentIdentifier(unique_student_identifier="admin")
 response = courses_instructor_api_mark_student_can_skip_entrance_exam_create.sync_detailed(
-    client=client, course_id='course-v1:edx+cs202+2101', body=data
+    client=client, course_id=course_id, body=data
 )
 parsing(response)
