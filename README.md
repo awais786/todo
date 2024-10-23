@@ -54,7 +54,7 @@ ensuring that they are automatically used in requests.
 Here's an example of how to use it:
 
 from generated_client.authoring_api_client.models.student_progress_url import StudentProgressUrl
-
+from generated_client.authoring_api_client.api.courses import courses_instructor_api_get_student_progress_url_create
 
 # Initialize the client
 base_url = "http://local.edly.io:8000/"
@@ -100,12 +100,6 @@ data = courses_instructor_api_modify_access_create.Access(
     action=ActionEnum.ALLOW  # Use the enum value here
 )
 
-# Sending request to modify student access
-response = courses_instructor_api_modify_access_create.sync_detailed(
-    client=client,
-    course_id='course-v1:edx+cs202+2101',
-    body=data
-)
 
 # Check response or handle it accordingly
 print(response)
