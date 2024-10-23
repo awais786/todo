@@ -4,7 +4,8 @@ This guide explains how to generate an OpenAPI 3 schema for LMS instructor APIs 
 
 ## Prerequisites
 
-- **Django LMS**: Ensure that the LMS is set up with the `drf-spectacular` package.
+- **Django LMS**: Ensure that the LMS is set up with the `drf-spectacular` package. This is my [PR #35710](https://github.com/openedx/edx-platform/pull/35710) which I used to generate the `schema.json` and `client`.
+
 - **Python**: Python 3.x must be installed.
 - **pip**: Make sure you have pip installed for managing Python packages.
 
