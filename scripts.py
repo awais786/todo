@@ -97,3 +97,7 @@ response = courses_instructor_api_mark_student_can_skip_entrance_exam_create.syn
     client=client, course_id=course_id, body=data
 )
 parsing(response)
+
+#
+# docker run --rm -v /Users/awais.qureshi/Documents/devstack/todo/schema.yaml:/local/schema.yaml -v /Users/awais.qureshi/Documents/devstack/todo/client:/local/out openapitools/openapi-generator-cli generate -i openapitools/openapi-generator-cli generate -i /local/schema.yaml -g python -o /local/out
+
