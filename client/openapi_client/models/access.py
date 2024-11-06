@@ -20,7 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
-from openapi_client.models.action_enum import ActionEnum
+from client.openapi_client.models.action_enum import ActionEnum
 from typing import Optional, Set
 from typing_extensions import Self
 

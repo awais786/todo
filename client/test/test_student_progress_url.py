@@ -14,7 +14,7 @@
 
 import unittest
 
-from openapi_client.models.student_progress_url import StudentProgressUrl
+from client.openapi_client.models.student_progress_url import StudentProgressUrl
 
 class TestStudentProgressUrl(unittest.TestCase):
     """StudentProgressUrl unit test stubs"""

@@ -19,18 +19,18 @@ from typing_extensions import Annotated
 from pydantic import Field, field_validator
 from typing import Optional
 from typing_extensions import Annotated
-from openapi_client.models.access import Access
-from openapi_client.models.block_due_date import BlockDueDate
-from openapi_client.models.list_instructor_task_input import ListInstructorTaskInput
-from openapi_client.models.send_email import SendEmail
-from openapi_client.models.show_student_extension import ShowStudentExtension
-from openapi_client.models.student_attempts import StudentAttempts
-from openapi_client.models.student_progress_url import StudentProgressUrl
-from openapi_client.models.unique_student_identifier import UniqueStudentIdentifier
+from client.openapi_client.models.access import Access
+from client.openapi_client.models.block_due_date import BlockDueDate
+from client.openapi_client.models.list_instructor_task_input import ListInstructorTaskInput
+from client.openapi_client.models.send_email import SendEmail
+from client.openapi_client.models.show_student_extension import ShowStudentExtension
+from client.openapi_client.models.student_attempts import StudentAttempts
+from client.openapi_client.models.student_progress_url import StudentProgressUrl
+from client.openapi_client.models.unique_student_identifier import UniqueStudentIdentifier
 
-from openapi_client.api_client import ApiClient, RequestSerialized
-from openapi_client.api_response import ApiResponse
-from openapi_client.rest import RESTResponseType
+from client.openapi_client.api_client import ApiClient, RequestSerialized
+from client.openapi_client.api_response import ApiResponse
+from client.openapi_client.rest import RESTResponseType
 
 
 class CoursesApi:

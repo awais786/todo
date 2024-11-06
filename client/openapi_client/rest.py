@@ -19,7 +19,7 @@ import ssl
 
 import urllib3
 
-from openapi_client.exceptions import ApiException, ApiValueError
+from client.openapi_client.exceptions import ApiException, ApiValueError
 
 SUPPORTED_SOCKS_PROXIES = {"socks5", "socks5h", "socks4", "socks4a"}
 RESTResponseType = urllib3.HTTPResponse
@@ -152,7 +152,6 @@ class RESTClientObject:
 
         post_params = post_params or {}
         headers = headers or {}
-
         timeout = None
         if _request_timeout:
             if isinstance(_request_timeout, (int, float)):
@@ -169,7 +168,6 @@ class RESTClientObject:
         try:
             # For `POST`, `PUT`, `PATCH`, `OPTIONS`, `DELETE`
             if method in ['POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE']:
-
                 # no content type provided or payload is json
                 content_type = headers.get('Content-Type')
                 if (
@@ -177,11 +175,13 @@ class RESTClientObject:
                     or re.search('json', content_type, re.IGNORECASE)
                 ):
                     request_body = None
+                    token_ = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJvcGVuZWR4IiwiZXhwIjoxNzMwODgyODM3LCJncmFudF90eXBlIjoiY2xpZW50LWNyZWRlbnRpYWxzIiwiaWF0IjoxNzMwODc5MjM3LCJpc3MiOiJodHRwOi8vbG9jYWwuZWRseS5pby9vYXV0aDIiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiIsInNjb3BlcyI6WyJyZWFkIiwid3JpdGUiLCJlbWFpbCIsInByb2ZpbGUiXSwidmVyc2lvbiI6IjEuMi4wIiwic3ViIjoiYzIwOGU4Yzk3MjFlODJkMmZhOTY4ZmZmYmY0OWRlOGEiLCJmaWx0ZXJzIjpbXSwiaXNfcmVzdHJpY3RlZCI6ZmFsc2UsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwibmFtZSI6ImFkbWluIiwiZmFtaWx5X25hbWUiOiJtaW4iLCJnaXZlbl9uYW1lIjoiYWQiLCJhZG1pbmlzdHJhdG9yIjp0cnVlLCJzdXBlcnVzZXIiOnRydWV9.YS0pYuX5n-dzntgFUSQUaH_t3IdsOXbBlDN_e6kAceM'
+                    headers['Authorization'] = f"JWT {token_}"
                     if body is not None:
                         request_body = json.dumps(body)
                     r = self.pool_manager.request(
                         method,
-                        url,
+                        "http://local.edly.io:8000/courses/course-v1:edx+cs202+2101/instructor/api/get_student_progress_url",
                         body=request_body,
                         timeout=timeout,
                         headers=headers,

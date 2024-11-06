@@ -17,26 +17,26 @@
 __version__ = "1.0.0"
 
 # import apis into sdk package
-from openapi_client.api.courses_api import CoursesApi
+from client.openapi_client.api.courses_api import CoursesApi
 
 # import ApiClient
-from openapi_client.api_response import ApiResponse
-from openapi_client.api_client import ApiClient
-from openapi_client.configuration import Configuration
-from openapi_client.exceptions import OpenApiException
-from openapi_client.exceptions import ApiTypeError
-from openapi_client.exceptions import ApiValueError
-from openapi_client.exceptions import ApiKeyError
-from openapi_client.exceptions import ApiAttributeError
-from openapi_client.exceptions import ApiException
+from client.openapi_client.api_response import ApiResponse
+from client.openapi_client.api_client import ApiClient
+from client.openapi_client.configuration import Configuration
+from client.openapi_client.exceptions import OpenApiException
+from client.openapi_client.exceptions import ApiTypeError
+from client.openapi_client.exceptions import ApiValueError
+from client.openapi_client.exceptions import ApiKeyError
+from client.openapi_client.exceptions import ApiAttributeError
+from client.openapi_client.exceptions import ApiException
 
 # import models into sdk package
-from openapi_client.models.access import Access
-from openapi_client.models.action_enum import ActionEnum
-from openapi_client.models.block_due_date import BlockDueDate
-from openapi_client.models.list_instructor_task_input import ListInstructorTaskInput
-from openapi_client.models.send_email import SendEmail
-from openapi_client.models.show_student_extension import ShowStudentExtension
-from openapi_client.models.student_attempts import StudentAttempts
-from openapi_client.models.student_progress_url import StudentProgressUrl
-from openapi_client.models.unique_student_identifier import UniqueStudentIdentifier
+from client.openapi_client.models.access import Access
+from client.openapi_client.models.action_enum import ActionEnum
+from client.openapi_client.models.block_due_date import BlockDueDate
+from client.openapi_client.models.list_instructor_task_input import ListInstructorTaskInput
+from client.openapi_client.models.send_email import SendEmail
+from client.openapi_client.models.show_student_extension import ShowStudentExtension
+from client.openapi_client.models.student_attempts import StudentAttempts
+from client.openapi_client.models.student_progress_url import StudentProgressUrl
+from client.openapi_client.models.unique_student_identifier import UniqueStudentIdentifier

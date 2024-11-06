@@ -14,12 +14,12 @@
 
 
 # import models into model package
-from openapi_client.models.access import Access
-from openapi_client.models.action_enum import ActionEnum
-from openapi_client.models.block_due_date import BlockDueDate
-from openapi_client.models.list_instructor_task_input import ListInstructorTaskInput
-from openapi_client.models.send_email import SendEmail
-from openapi_client.models.show_student_extension import ShowStudentExtension
-from openapi_client.models.student_attempts import StudentAttempts
-from openapi_client.models.student_progress_url import StudentProgressUrl
-from openapi_client.models.unique_student_identifier import UniqueStudentIdentifier
+from client.openapi_client.models.access import Access
+from client.openapi_client.models.action_enum import ActionEnum
+from client.openapi_client.models.block_due_date import BlockDueDate
+from client.openapi_client.models.list_instructor_task_input import ListInstructorTaskInput
+from client.openapi_client.models.send_email import SendEmail
+from client.openapi_client.models.show_student_extension import ShowStudentExtension
+from client.openapi_client.models.student_attempts import StudentAttempts
+from client.openapi_client.models.student_progress_url import StudentProgressUrl
+from client.openapi_client.models.unique_student_identifier import UniqueStudentIdentifier

@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictStr, HttpUrl
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -26,7 +26,7 @@ class StudentProgressUrl(BaseModel):
     """
     Serializer for course renders
     """ # noqa: E501
-    unique_student_identifier: StrictStr
+    unique_student_identifier: Optional[StrictStr] = None  # Optional for responses
     course_id: Optional[StrictStr] = None
     progress_url: StrictStr
     __properties: ClassVar[List[str]] = ["unique_student_identifier", "course_id", "progress_url"]
@@ -83,11 +83,11 @@ class StudentProgressUrl(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
+        _obj = {
             "unique_student_identifier": obj.get("unique_student_identifier"),
             "course_id": obj.get("course_id"),
-            "progress_url": obj.get("progress_url")
-        })
+            "progress_url": obj.get("progress_url"),
+        }
         return _obj
 
 
